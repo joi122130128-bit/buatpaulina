@@ -54,8 +54,18 @@
         p { color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 10px;}
         .highlight { font-weight: 600; color: #d81b60; }
         
-        /* Galeri Foto */
-        .gallery { display: flex; flex-direction: column; gap: 20px; margin-top: 20px; }
+        /* Galeri Foto Auto-Scroll */
+        .gallery { 
+            display: flex; flex-direction: column; gap: 20px; margin-top: 20px; 
+            max-height: 420px; /* Batas tinggi area scroll */
+            overflow-y: auto; 
+            padding: 10px 5px;
+            border-radius: 15px;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Sembunyikan scrollbar Firefox */
+        }
+        .gallery::-webkit-scrollbar { display: none; } /* Sembunyikan scrollbar Chrome/Safari */
+
         .polaroid { background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #f8bbd0; }
         .polaroid img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 5px; }
         .polaroid p { margin: 10px 0 0 0; color: #d81b60; font-size: 14px; font-style: italic; font-weight: 600; }
@@ -80,35 +90,35 @@
         
         <!-- BAGIAN 1: PESAN PENYEMANGAT -->
         <div id="phase1">
-            <h1>Haii orang keren! ✨</h1>
-            <p>Semangat yaa jalanin harinya! Jangan lupa makan yang banyak biar kuat ngadepin dunia (dan ngadepin aku, eh ✌️).</p>
+            <h1>Hi! ✨</h1>
+            <p>Semangat jalanin harinya! Jangan lupa makan yang banyak biar kuat ngadepin dunia (dan ngadepin aku, eh ✌️).</p>
             <p>Oh iya, kalau nanti butuh yang manis-manis buat naikin <i>mood</i>, <span class="highlight">liat aku aja yaa 😜</span>.</p>
             <p>Kalau lagi mumet atau capek, <i>chat</i> aja. <br><b>You got this! 💖</b></p>
-            <button class="btn-next" id="nextBtn">Lanjut Kalau Kamu Mau Liat Orang Keren >></button>
+            <button class="btn-next" id="nextBtn">Lanjut Kalau Kamu Masih Sayang >></button>
         </div>
 
         <!-- BAGIAN 2: MINI GAME -->
         <div id="phase2" style="display: none;">
             <h2>Eits, tunggu dulu! 🛑</h2>
-            <p style="font-weight: 600;">Sebelum lanjut, kamu harus tangkap hati ini 3 kali buat dapet hadiahnya! 🥰</p>
+            <p style="font-weight: 600;">Sebelum lanjut, kamu harus tangkap hatiku 3 kali buat dapet hadiahnya! 🥰</p>
             <div id="gameArea">
                 <button id="heartBtn">💖</button>
             </div>
         </div>
 
-        <!-- BAGIAN 3: FOTO ROMANTIS -->
+        <!-- BAGIAN 3: FOTO ROMANTIS (AUTO SCROLL) -->
         <div id="phase3" style="display: none;">
-            <h2>Yeay! Pinter banget sihh kamu Paull udah ketangkep aja sama kamu 🥰</h2>
+            <h2>Yeay! Hati aku udah ketangkep sama kamu 🥰</h2>
             <p>Ini spesial buat kamu biar senyum terus:</p>
             
-            <div class="gallery">
-                <div class="polaroid"><img src="foto1.png" alt="Foto 1"><p>Ini orang kerennya hahah ✨</p></div>
-                <div class="polaroid"><img src="foto2.png" alt="Foto 2"><p>Ini orang manisnya wwkwk 😜</p></div>
-                <div class="polaroid"><img src="foto3.png" alt="Foto 3"><p>Klo ini orang palinng lucu 🥰</p></div>
-                <div class="polaroid"><img src="foto4.png" alt="Foto 4"><p>Klo ini orang Imut (malu sihh cuman ya gpp lah hahah) 💖</p></div>
-                <div class="polaroid"><img src="foto5.png" alt="Foto 5"><p>Klo ini kamu doang yang keren hahaha mau foto sama supir soalnya wkwkw ✌️</p></div>
-                <div class="polaroid"><img src="foto6.png" alt="Foto 6"><p>klo ini aku doang yang manis kamu manisnya dikit doang haha 🌻</p></div>
-                <div class="polaroid"><img src="foto7.png" alt="Foto 7"><p>kamu tau kenapa fotonya ada aku semua? karna kamu ga pernah kirim foto sendiri sii hahaha 🎉</p></div>
+            <div class="gallery" id="autoGallery">
+                <div class="polaroid"><img src="foto1.png" alt="Foto 1"><p>Caption foto pertama ✨</p></div>
+                <div class="polaroid"><img src="foto2.png" alt="Foto 2"><p>Caption foto kedua 😜</p></div>
+                <div class="polaroid"><img src="foto3.png" alt="Foto 3"><p>Caption foto ketiga 🥰</p></div>
+                <div class="polaroid"><img src="foto4.png" alt="Foto 4"><p>Caption foto keempat 💖</p></div>
+                <div class="polaroid"><img src="foto5.png" alt="Foto 5"><p>Caption foto kelima ✌️</p></div>
+                <div class="polaroid"><img src="foto6.png" alt="Foto 6"><p>Caption foto keenam 🌻</p></div>
+                <div class="polaroid"><img src="foto7.png" alt="Foto 7"><p>Caption foto ketujuh! 🎉</p></div>
             </div>
         </div>
 
@@ -125,29 +135,19 @@
             const item = document.createElement("div");
             item.classList.add("floating-item");
             
-            // Random pilih ikon: Kupu-kupu, Love, atau Bintang
             const icons = ["🦋", "💖", "💕", "✨"];
             item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-            
-            // Posisi X acak (dari kiri ke kanan layar)
             item.style.left = Math.random() * 100 + "vw";
-            
-            // Ukuran acak
             item.style.fontSize = (Math.random() * 20 + 15) + "px";
             
-            // Kecepatan terbang acak (antara 5 sampai 10 detik)
             const duration = Math.random() * 5 + 5;
             item.style.animationDuration = duration + "s";
             
             bg.appendChild(item);
             
-            // Hapus elemen setelah selesai terbang biar gak bikin lemot
-            setTimeout(() => {
-                item.remove();
-            }, duration * 1000);
+            setTimeout(() => { item.remove(); }, duration * 1000);
         }
 
-        // Bikin elemen baru setiap 400 milidetik (0.4 detik)
         setInterval(createFloatingItem, 400);
 
 
@@ -160,6 +160,7 @@
         const phase3 = document.getElementById("phase3");
         const heart = document.getElementById("heartBtn");
         const gameArea = document.getElementById("gameArea");
+        const gallery = document.getElementById("autoGallery");
 
         startBtn.addEventListener("click", function() {
             document.getElementById("myAudio").play();
@@ -187,12 +188,28 @@
 
         setInterval(moveHeart, 800);
 
+        // FITUR AUTO SCROLL GALERI FOTO
+        function startAutoScroll() {
+            setInterval(() => {
+                // Geser ke bawah 1 pixel
+                gallery.scrollTop += 1;
+                
+                // Jika sudah sampai paling bawah, reset kembali ke atas
+                if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 1) {
+                    gallery.scrollTop = 0;
+                }
+            }, 30); // Kecepatan gerak (30ms per pixel, terasa halus dan pelan)
+        }
+
         heart.addEventListener("click", function() {
             score++;
             if(score >= 3) {
                 phase2.style.display = "none";
                 phase3.style.display = "block";
                 phase3.classList.add("fade-in");
+                
+                // Jalankan auto-scroll otomatis begitu fase 3 terbuka
+                startAutoScroll();
             } else {
                 moveHeart(); 
             }
