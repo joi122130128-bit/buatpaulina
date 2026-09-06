@@ -184,12 +184,12 @@
 
     <!-- TAMPILAN MASUKKAN PIN -->
     <div class="pin-container" id="pinContainer">
-        <!-- FOTO PANDA (PNG) PENGGANTI JUDUL ATAS -->
+        <!-- FOTO PANDA (PNG) -->
         <img src="panda.png" alt="Panda Lucu" class="pin-panda-img">
         
-        <p style="font-size: 14px; color: #d81b60; font-weight: 600; margin-bottom: 8px;">Kamu bisa masuk kalau kamu ingat tanggal berapa pertama kali aku confess sama kamu awkwwk</p>
-        <p style="font-size: 12px; color: #777; margin-top: 0;">Format: Tanggal, Bulan, & Tahun (Contoh: 12052024)</p>
-        <input type="password" id="pinInput" class="pin-input" placeholder="DDMMYYYY" maxlength="8" pattern="\d*">
+        <p style="font-size: 14px; color: #d81b60; font-weight: 600; margin-bottom: 15px;">Kamu bisa masuk kalau kamu ingat tanggal berapa pertama kali aku confess sama kamu awkwwk</p>
+        
+        <input type="password" id="pinInput" class="pin-input" placeholder="DDMMYY" maxlength="6" pattern="\d*">
         <br>
         <button class="btn-start" id="submitPinBtn">Buka Pesan 🔑</button>
         <p id="errorMessage"></p>
@@ -244,9 +244,10 @@
 
     <script>
         // =========================================================================
-        // UBAH PIN TANGGAL BULAN TAHUN DI SINI (CONTOH: Tanggal 12 Mei 2024 = 12052024)
+        // PIN TANGGAL CONFESS (29 AGUSTUS 2026 = 290826)
         // =========================================================================
-        const CORRECT_PIN = "01012024"; 
+        const CORRECT_PIN = "290826"; 
+        let wrongAttempts = 0; // Menghitung jumlah percobaan salah
 
         // === ANIMASI BACKGROUND ===
         function createFloatingItem() {
@@ -286,7 +287,17 @@
                     mainContainer.style.transform = "translateY(0)"; 
                 }, 100);
             } else {
-                errorMessage.innerText = "Muka cantik lucu imut gemesin trus pinter banget lagi kok bisa salah si Paull";
+                wrongAttempts++;
+                
+                // Menentukan pesan error berdasarkan jumlah salah
+                if (wrongAttempts === 1) {
+                    errorMessage.innerText = "Muka cantik lucu imut gemesin trus pinter banget lagi kok bisa salah si Paull";
+                } else if (wrongAttempts === 2) {
+                    errorMessage.innerText = "Ayo Paull masa orang pinter kek kamu ga ingatt sii parah kecewa ahhhh";
+                } else {
+                    errorMessage.innerText = "Beneran ngambek ahh sama kamu";
+                }
+
                 errorMessage.style.display = "block";
                 errorMessage.classList.remove("fade-in");
                 void errorMessage.offsetWidth; // Reset animasi
