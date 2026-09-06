@@ -73,7 +73,7 @@
         .btn-start:hover, .btn-next:hover { transform: scale(1.05); background-color: #f50057; }
         .btn-next { margin-top: 20px; font-size: 15px; padding: 10px 25px; }
         
-        /* Input PIN & Foto Panda Atas */
+        /* Input PIN & Foto Atas */
         .pin-container {
             background: rgba(255, 255, 255, 0.95);
             padding: 25px 20px;
@@ -118,7 +118,7 @@
             line-height: 1.5;
         }
 
-        /* Panda di Fase 1 */
+        /* Foto di Fase 1 */
         .panda-box {
             margin-bottom: 10px;
             animation: bouncePanda 1.2s infinite ease-in-out alternate;
@@ -126,7 +126,9 @@
         .panda-box img {
             width: 110px;
             height: 110px;
-            object-fit: contain;
+            object-fit: cover; /* Diubah ke cover agar foto orang terlihat rapi */
+            border-radius: 50%; /* Dibuat bulat agar lebih manis */
+            border: 3px solid #ff80ab;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
         }
         @keyframes bouncePanda {
@@ -184,8 +186,8 @@
 
     <!-- TAMPILAN MASUKKAN PIN -->
     <div class="pin-container" id="pinContainer">
-        <!-- FOTO PANDA LOKAL DARI KAMU -->
-        <img src="panda.png" alt="Panda Lucu" class="pin-panda-img">
+        <!-- FOTO PAUL LOKAL -->
+        <img src="paul.png" alt="Foto Paul" class="pin-panda-img">
         
         <p style="font-size: 14px; color: #d81b60; font-weight: 600; margin-bottom: 15px;">Kamu bisa masuk kalau kamu ingat tanggal berapa pertama kali aku confess sama kamu awkwwk</p>
         
@@ -200,9 +202,9 @@
         
         <!-- BAGIAN 1: PESAN PENYEMANGAT -->
         <div id="phase1">
-            <!-- FOTO PANDA LOKAL DARI KAMU (DI HALAMAN PESAN) -->
+            <!-- FOTO PAUL LOKAL (DI HALAMAN PESAN) -->
             <div class="panda-box">
-                <img src="panda.png" alt="Panda Animasi">
+                <img src="paul.png" alt="Foto Paul">
             </div>
             <h1>Hallo Paulll ✨</h1>
             <p>Hari ini harus Semangat buat jalani hari ini yaa! Jangan lupa makan yang banyak biar kuat ngadepin dunia (dan ngadepin aku, eh ✌️).</p>
@@ -255,7 +257,7 @@
             const item = document.createElement("div");
             item.classList.add("floating-item");
             
-            const icons = ["🦋", "💖", "💕", "✨", "🐼"];
+            const icons = ["🦋", "💖", "💕", "✨", "⭐"];
             item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
             item.style.left = Math.random() * 100 + "vw";
             item.style.fontSize = (Math.random() * 20 + 15) + "px";
@@ -371,7 +373,7 @@
             document.body.classList.add("bg-flash");
             setTimeout(() => { document.body.classList.remove("bg-flash"); }, 200);
 
-            const particles = ["💖", "💥", "✨", "🌸", "💕", "🦋", "🎉", "❤️", "⭐", "🐼"];
+            const particles = ["💖", "💥", "✨", "🌸", "💕", "🦋", "🎉", "❤️", "⭐"];
             const count = 16;
 
             for (let i = 0; i < count; i++) {
