@@ -23,7 +23,7 @@
             background: linear-gradient(135deg, #ff80ab, #f48fb1, #ff4081);
         }
 
-        /* Area Animasi Background (Kupu-kupu & Love Terbang) */
+        /* Area Animasi Background */
         #bg-animation {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
@@ -85,7 +85,7 @@
         p { color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 10px;}
         .highlight { font-weight: 600; color: #d81b60; }
         
-        /* Galeri Foto (Auto-Scroll & Manual Scroll Tanpa Bentrokan) */
+        /* Galeri Foto */
         .gallery { 
             display: flex; flex-direction: column; gap: 20px; margin-top: 20px; 
             max-height: 420px; 
@@ -223,34 +223,30 @@
 
         setInterval(moveHeart, 800);
 
-        // === LOGIKA AUTO-SCROLL + PAUSE SAAT DISENTUH ===
+        // === LOGIKA AUTO-SCROLL (DIUBAH JADI 8ms) ===
         let isAutoScrolling = true;
-        let resumeTimer = null;
+        let pauseTimer = null;
 
         function startAutoScroll() {
             setInterval(() => {
                 if (isAutoScrolling) {
                     gallery.scrollTop += 2;
-                    if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 1) {
+                    if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 2) {
                         gallery.scrollTop = 0;
                     }
                 }
-            }, 15);
+            }, 8); // Kecepatan diubah dari 15ms ke 8ms
         }
 
-        function stopScroll() {
+        function pauseScroll() {
             isAutoScrolling = false;
-            clearTimeout(resumeTimer);
-        }
-
-        function startScrollTimer() {
-            clearTimeout(resumeTimer);
-            resumeTimer = setTimeout(() => {
+            clearTimeout(pauseTimer);
+            pauseTimer = setTimeout(() => {
                 isAutoScrolling = true;
-            }, 3000); // Jalan lagi otomatis 3 detik setelah sentuhan dilepas
+            }, 2000);
         }
 
-        // === FUNGSI LEDAKAN MERIAH (16 PARTIKEL) ===
+        // === FUNGSI LEDAKAN MERIAH ===
         function explodeParticles(x, y) {
             document.body.classList.add("bg-flash");
             setTimeout(() => { document.body.classList.remove("bg-flash"); }, 200);
@@ -279,26 +275,23 @@
             }
         }
 
-        // EVENT LISTENER SENTUHAN / SCROLL
+        // CONTROL SENTUHAN JARI / MOUSE
         gallery.addEventListener("touchstart", (e) => {
-            stopScroll();
+            pauseScroll();
             const touch = e.touches[0];
             explodeParticles(touch.clientX, touch.clientY);
         }, { passive: true });
 
-        gallery.addEventListener("touchmove", stopScroll, { passive: true });
-        gallery.addEventListener("touchend", startScrollTimer, { passive: true });
+        gallery.addEventListener("touchmove", pauseScroll, { passive: true });
+        gallery.addEventListener("touchend", pauseScroll, { passive: true });
 
         gallery.addEventListener("mousedown", (e) => {
-            stopScroll();
+            pauseScroll();
             explodeParticles(e.clientX, e.clientY);
         });
 
-        gallery.addEventListener("mouseup", startScrollTimer);
-        gallery.addEventListener("scroll", () => {
-            stopScroll();
-            startScrollTimer();
-        }, { passive: true });
+        gallery.addEventListener("mouseup", pauseScroll);
+        gallery.addEventListener("wheel", pauseScroll, { passive: true });
 
         heart.addEventListener("click", function() {
             score++;
