@@ -73,6 +73,58 @@
         .btn-start:hover, .btn-next:hover { transform: scale(1.05); background-color: #f50057; }
         .btn-next { margin-top: 20px; font-size: 15px; padding: 10px 25px; }
         
+        /* Input PIN */
+        .pin-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 350px;
+            width: 85%;
+            backdrop-filter: blur(5px);
+        }
+        .pin-input {
+            padding: 12px 15px;
+            font-size: 18px;
+            border: 2px solid #ff80ab;
+            border-radius: 15px;
+            text-align: center;
+            letter-spacing: 3px;
+            width: 80%;
+            margin-bottom: 15px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+            transition: border-color 0.3s;
+        }
+        .pin-input:focus {
+            border-color: #f50057;
+        }
+        #errorMessage {
+            color: #d81b60;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+            line-height: 1.5;
+        }
+
+        /* Panda Lucu */
+        .panda-box {
+            margin-bottom: 10px;
+            animation: bouncePanda 1.2s infinite ease-in-out alternate;
+        }
+        .panda-box img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+        @keyframes bouncePanda {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-12px) scale(1.05); }
+        }
+
         /* Kotak Utama */
         .container { 
             padding: 30px; background: rgba(255, 255, 255, 0.95); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
@@ -81,7 +133,7 @@
         }
         
         h1 { color: #d81b60; font-size: 24px; margin-top: 0; }
-        h2 { color: #d81b60; font-size: 20px; }
+        h2 { color: #d81b60; font-size: 20px; margin-top: 0; }
         p { color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 10px;}
         .highlight { font-weight: 600; color: #d81b60; }
         
@@ -121,12 +173,26 @@
     <!-- Animasi Background -->
     <div id="bg-animation"></div>
 
-    <button class="btn-start" id="startBtn">Ada pesan buat kamu 💌</button>
+    <!-- TAMPILAN MASUKKAN PIN -->
+    <div class="pin-container" id="pinContainer">
+        <h2>Masukkan PIN Tanggal 💌</h2>
+        <p style="font-size: 14px; color: #d81b60; font-weight: 600; margin-bottom: 8px;">Kamu bisa masuk kalau kamu ingat tanggal berapa pertama kali aku confess sama kamu awkwwk</p>
+        <p style="font-size: 12px; color: #777; margin-top: 0;">Format: Tanggal, Bulan, & Tahun (Contoh: 12052024)</p>
+        <input type="password" id="pinInput" class="pin-input" placeholder="DDMMYYYY" maxlength="8" pattern="\d*">
+        <br>
+        <button class="btn-start" id="submitPinBtn">Buka Pesan 🔑</button>
+        <p id="errorMessage"></p>
+    </div>
 
+    <!-- KOTAK UTAMA HASIL/PESAN -->
     <div class="container" id="mainContainer">
         
         <!-- BAGIAN 1: PESAN PENYEMANGAT -->
         <div id="phase1">
+            <!-- HEWAN PANDA LUCU -->
+            <div class="panda-box">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp1eDNrbmsxeGZpOGV6a3h3dWF6cXptZWttNXludTdxYTFva2Q2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vFKqnCdLPNOKc/giphy.gif" alt="Panda Lucu">
+            </div>
             <h1>Hallo Paulll ✨</h1>
             <p>Hari ini harus Semangat buat jalani hari ini yaa! Jangan lupa makan yang banyak biar kuat ngadepin dunia (dan ngadepin aku, eh ✌️).</p>
             <p>Oh iya, kalau nanti butuh yang manis-manis buat naikin <i>mood</i>, <span class="highlight">liat aku aja kan aku manis banget awkwkwk😜</span>.</p>
@@ -166,13 +232,18 @@
     </audio>
 
     <script>
+        // =========================================================================
+        // UBAH PIN TANGGAL BULAN TAHUN DI SINI (CONTOH: Tanggal 12 Mei 2024 = 12052024)
+        // =========================================================================
+        const CORRECT_PIN = "01012024"; 
+
         // === ANIMASI BACKGROUND ===
         function createFloatingItem() {
             const bg = document.getElementById("bg-animation");
             const item = document.createElement("div");
             item.classList.add("floating-item");
             
-            const icons = ["🦋", "💖", "💕", "✨"];
+            const icons = ["🦋", "💖", "💕", "✨", "🐼"];
             item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
             item.style.left = Math.random() * 100 + "vw";
             item.style.fontSize = (Math.random() * 20 + 15) + "px";
@@ -186,9 +257,43 @@
 
         setInterval(createFloatingItem, 400);
 
-        // === LOGIKA ALUR WEB & GAME ===
-        const startBtn = document.getElementById("startBtn");
+        // === LOGIKA CEK PIN ===
+        const submitPinBtn = document.getElementById("submitPinBtn");
+        const pinInput = document.getElementById("pinInput");
+        const errorMessage = document.getElementById("errorMessage");
+        const pinContainer = document.getElementById("pinContainer");
         const mainContainer = document.getElementById("mainContainer");
+
+        function checkPin() {
+            const userPin = pinInput.value.trim();
+            if (userPin === CORRECT_PIN) {
+                document.getElementById("myAudio").play();
+                pinContainer.style.display = "none";
+                mainContainer.style.display = "block";
+                setTimeout(() => { 
+                    mainContainer.style.opacity = 1; 
+                    mainContainer.style.transform = "translateY(0)"; 
+                }, 100);
+            } else {
+                errorMessage.innerText = "Muka cantik lucu imut gemesin trus pinter banget lagi kok bisa salah si Paull";
+                errorMessage.style.display = "block";
+                errorMessage.classList.remove("fade-in");
+                void errorMessage.offsetWidth; // Reset animasi
+                errorMessage.classList.add("fade-in");
+                pinInput.value = "";
+            }
+        }
+
+        submitPinBtn.addEventListener("click", checkPin);
+
+        // Tekan Enter untuk submit PIN
+        pinInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                checkPin();
+            }
+        });
+
+        // === LOGIKA ALUR WEB & GAME ===
         const phase1 = document.getElementById("phase1");
         const nextBtn = document.getElementById("nextBtn");
         const phase2 = document.getElementById("phase2");
@@ -196,13 +301,6 @@
         const heart = document.getElementById("heartBtn");
         const gameArea = document.getElementById("gameArea");
         const gallery = document.getElementById("autoGallery");
-
-        startBtn.addEventListener("click", function() {
-            document.getElementById("myAudio").play();
-            startBtn.style.display = "none";
-            mainContainer.style.display = "block";
-            setTimeout(() => { mainContainer.style.opacity = 1; mainContainer.style.transform = "translateY(0)"; }, 100);
-        });
 
         nextBtn.addEventListener("click", function() {
             phase1.style.display = "none"; 
@@ -223,7 +321,7 @@
 
         setInterval(moveHeart, 800);
 
-        // === LOGIKA AUTO-SCROLL (DIUBAH JADI 14ms) ===
+        // === LOGIKA AUTO-SCROLL (14ms) ===
         let isAutoScrolling = true;
         let pauseTimer = null;
 
@@ -235,7 +333,7 @@
                         gallery.scrollTop = 0;
                     }
                 }
-            }, 14); // Kecepatan diubah ke 14ms
+            }, 14); // Kecepatan 14ms
         }
 
         function pauseScroll() {
@@ -251,7 +349,7 @@
             document.body.classList.add("bg-flash");
             setTimeout(() => { document.body.classList.remove("bg-flash"); }, 200);
 
-            const particles = ["💖", "💥", "✨", "🌸", "💕", "🦋", "🎉", "❤️", "⭐"];
+            const particles = ["💖", "💥", "✨", "🌸", "💕", "🦋", "🎉", "❤️", "⭐", "🐼"];
             const count = 16;
 
             for (let i = 0; i < count; i++) {
