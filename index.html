@@ -228,8 +228,7 @@
         <div id="phase5" style="display: none;">
             <h2>Kejutan Spesial! 🎉</h2>
             <div class="polaroid" style="margin: 0 auto 20px auto; max-width: 250px; cursor: default;">
-                <!-- GANTI "foto14.png" DENGAN NAMA FOTO YANG KAMU MAU TAMPILIN DI TANGGAL 14 -->
-                <img src="foto1.png" alt="Foto Spesial 14"> 
+                <img src="foto14.png" alt="Foto Spesial 14"> 
                 <p>Spesial Tanggal 14 💖</p>
             </div>
             <p style="font-weight: 600; color: #d81b60; font-size: 16px; line-height: 1.6;">
@@ -381,7 +380,7 @@
 
         // === LOGIKA PINDAH KE KALENDER ===
         btnToCalendar.addEventListener("click", function() {
-            clearInterval(scrollInterval); // Hentikan auto scroll galeri
+            clearInterval(scrollInterval);
             phase3.style.display = "none";
             phase4.style.display = "block";
             phase4.classList.add("fade-in");
@@ -405,12 +404,9 @@
             
             day.onclick = () => {
                 if(i === 14) {
-                    // Pindah ke Halaman (Phase) 5
-                    phase4.style.display = "none"; // Hilangkan kalender
-                    phase5.style.display = "block"; // Munculkan foto spesial
+                    phase4.style.display = "none"; 
+                    phase5.style.display = "block"; 
                     phase5.classList.add("fade-in");
-                    
-                    // Trigger partikel meriah saat berhasil buka
                     explodeParticles(window.innerWidth / 2, window.innerHeight / 2);
                 }
             };
