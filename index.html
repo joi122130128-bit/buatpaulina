@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buat Kamu 💌</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         /* Background Gradasi Pink */
         body { 
@@ -54,24 +54,15 @@
         }
 
         @keyframes explode {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) translate(0, 0) scale(0.3);
-            }
-            60% {
-                opacity: 1;
-                transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.5);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) translate(calc(var(--tx) * 1.2), calc(var(--ty) * 1.2)) scale(0.5);
-            }
+            0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(0.3); }
+            60% { opacity: 1; transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.5); }
+            100% { opacity: 0; transform: translate(-50%, -50%) translate(calc(var(--tx) * 1.2), calc(var(--ty) * 1.2)) scale(0.5); }
         }
 
         /* Tombol Utama */
         .btn-start, .btn-next { padding: 15px 30px; font-size: 18px; background-color: #ff80ab; color: white; border: none; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 128, 171, 0.4); font-weight: 600; font-family: 'Poppins', sans-serif; transition: 0.3s;}
         .btn-start:hover, .btn-next:hover { transform: scale(1.05); background-color: #f50057; }
-        .btn-next { margin-top: 20px; font-size: 15px; padding: 10px 25px; }
+        .btn-next { margin-top: 20px; font-size: 15px; padding: 10px 25px; width: 100%;}
         
         /* Input PIN & Foto Atas */
         .pin-container {
@@ -106,35 +97,13 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             transition: border-color 0.3s;
         }
-        .pin-input:focus {
-            border-color: #f50057;
-        }
-        #errorMessage {
-            color: #d81b60;
-            font-weight: 600;
-            font-size: 14px;
-            margin-top: 15px;
-            display: none;
-            line-height: 1.5;
-        }
+        .pin-input:focus { border-color: #f50057; }
+        #errorMessage { color: #d81b60; font-weight: 600; font-size: 14px; margin-top: 15px; display: none; line-height: 1.5; }
 
         /* Foto di Fase 1 dan 2 */
-        .panda-box {
-            margin-bottom: 10px;
-            animation: bouncePanda 1.2s infinite ease-in-out alternate;
-        }
-        .panda-box img {
-            width: 110px;
-            height: 110px;
-            object-fit: cover; 
-            border-radius: 50%; 
-            border: 3px solid #ff80ab;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-        }
-        @keyframes bouncePanda {
-            from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-12px) scale(1.05); }
-        }
+        .panda-box { margin-bottom: 10px; animation: bouncePanda 1.2s infinite ease-in-out alternate; }
+        .panda-box img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; border: 3px solid #ff80ab; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+        @keyframes bouncePanda { from { transform: translateY(0) scale(1); } to { transform: translateY(-12px) scale(1.05); } }
 
         /* Kotak Utama */
         .container { 
@@ -151,7 +120,7 @@
         /* Galeri Foto */
         .gallery { 
             display: flex; flex-direction: column; gap: 20px; margin-top: 20px; 
-            max-height: 420px; 
+            max-height: 400px; 
             overflow-y: auto; 
             padding: 10px 5px;
             border-radius: 15px;
@@ -160,12 +129,7 @@
             cursor: pointer;
         }
         .gallery::-webkit-scrollbar { display: none; }
-
-        /* Style Polaroid Putih */
-        .polaroid { 
-            background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #f8bbd0; 
-            transition: transform 0.15s ease;
-        }
+        .polaroid { background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid #f8bbd0; transition: transform 0.15s ease; }
         .polaroid:active { transform: scale(0.95); }
         .polaroid img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 5px; pointer-events: none; }
         .polaroid p { margin: 10px 0 0 0; color: #d81b60; font-size: 14px; font-style: italic; font-weight: 600; pointer-events: none; }
@@ -173,6 +137,14 @@
         /* Area Game */
         #gameArea { position: relative; width: 100%; height: 200px; background-color: #fce4ec; border-radius: 15px; overflow: hidden; margin-top: 15px; border: 2px dashed #ff80ab;}
         #heartBtn { position: absolute; font-size: 40px; background: none; border: none; cursor: pointer; top: 70px; left: 150px; transition: top 0.2s, left 0.2s; user-select: none; padding: 0;}
+        
+        /* KALENDER SEMANGAT */
+        .calendar-header { display: grid; grid-template-columns: repeat(7, 1fr); font-weight: bold; color: #d81b60; margin-top: 15px; font-size: 14px; }
+        .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 10px; }
+        .day { padding: 10px 0; background: #fff; border: 1px solid #f8bbd0; border-radius: 8px; cursor: pointer; font-weight: 600; color: #d81b60; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px;}
+        .day:hover { background: #ff80ab; color: #fff; transform: translateY(-2px); }
+        .day.empty { background: transparent; border: none; box-shadow: none; cursor: default; }
+        .day.empty:hover { transform: none; background: transparent; }
         
         /* Efek Muncul */
         .fade-in { animation: fadeIn 0.8s ease forwards; }
@@ -186,11 +158,8 @@
 
     <!-- TAMPILAN MASUKKAN PIN -->
     <div class="pin-container" id="pinContainer">
-        <!-- FOTO PAUL LOKAL -->
         <img src="paul.png" alt="Foto Paul" class="pin-panda-img">
-        
         <p style="font-size: 14px; color: #d81b60; font-weight: 600; margin-bottom: 15px;">Kamu bisa masuk kalau kamu ingat tanggal berapa pertama kali aku confess sama kamu awkwwk</p>
-        
         <input type="password" id="pinInput" class="pin-input" placeholder="DDMMYY" maxlength="6" pattern="\d*">
         <br>
         <button class="btn-start" id="submitPinBtn">Buka Pesan 🔑</button>
@@ -202,7 +171,6 @@
         
         <!-- BAGIAN 1: PESAN PENYEMANGAT -->
         <div id="phase1">
-            <!-- FOTO PAUL LOKAL (DI HALAMAN PESAN) -->
             <div class="panda-box">
                 <img src="paul.png" alt="Foto Paul">
             </div>
@@ -215,12 +183,9 @@
 
         <!-- BAGIAN 2: MINI GAME -->
         <div id="phase2" style="display: none;">
-            
-            <!-- FOTO PANDA MUNCUL SEBELUM KATA EITS -->
             <div class="panda-box">
                 <img src="panda.png" alt="Panda Lucu" style="border-radius: 20px;">
             </div>
-
             <h2>Eits, tunggu dulu! 🛑</h2>
             <p style="font-weight: 600;">Eittss klo mau lanjutt liat orang kerennya, kamu harus effort dikit yaa Paull tangkap 3 kali buat liat orang kerennya! 🥰</p>
             <div id="gameArea">
@@ -242,6 +207,34 @@
                 <div class="polaroid"><img src="foto6.png" alt="Foto 6"><p>Foto ini juga favorite banget karan foto pertama kita selfiee hahaha trus momen di pantai ini favorite banget sii suka banget pokoknya sama keduwarna ini 🌻</p></div>
                 <div class="polaroid"><img src="foto7.png" alt="Foto 7"><p>Foto ini juga sangat spesial foto pertama kita yang berdua trus mirror lagi ini lucu banget ga sii hahaha 🎉</p></div>
             </div>
+
+            <button class="btn-next" id="btnToCalendar">Ada Satu Kejutan Lagi Nih! >></button>
+        </div>
+
+        <!-- BAGIAN 4: KALENDER SEMANGAT -->
+        <div id="phase4" style="display: none;">
+            <h2>Kalender Semangat! 📅</h2>
+            <p style="font-size: 14px;">Coba klik tanggal spesial di bulan September ini! 🥰</p>
+            
+            <div class="calendar-header">
+                <div>M</div><div>S</div><div>S</div><div>R</div><div>K</div><div>J</div><div>S</div>
+            </div>
+            <div class="calendar" id="calendarGrid">
+                <!-- Kalender di-generate pakai JavaScript -->
+            </div>
+        </div>
+        
+        <!-- BAGIAN 5: KEJUTAN FOTO TANGGAL 14 -->
+        <div id="phase5" style="display: none;">
+            <h2>Kejutan Spesial! 🎉</h2>
+            <div class="polaroid" style="margin: 0 auto 20px auto; max-width: 250px; cursor: default;">
+                <!-- GANTI "foto14.png" DENGAN NAMA FOTO YANG KAMU MAU TAMPILIN DI TANGGAL 14 -->
+                <img src="foto1.png" alt="Foto Spesial 14"> 
+                <p>Spesial Tanggal 14 💖</p>
+            </div>
+            <p style="font-weight: 600; color: #d81b60; font-size: 16px; line-height: 1.6;">
+                Hari ini tanggal 14! Semangat terus ya Paul orang keren! Walau capek, ingat ada aku yang selalu support kamu. You got this! ✨
+            </p>
         </div>
 
     </div>
@@ -251,30 +244,23 @@
     </audio>
 
     <script>
-        // =========================================================================
-        // PIN TANGGAL CONFESS (29 AGUSTUS 2026 = 290826)
-        // =========================================================================
         const CORRECT_PIN = "290826"; 
-        let wrongAttempts = 0; // Menghitung jumlah percobaan salah
+        let wrongAttempts = 0; 
 
         // === ANIMASI BACKGROUND ===
         function createFloatingItem() {
             const bg = document.getElementById("bg-animation");
             const item = document.createElement("div");
             item.classList.add("floating-item");
-            
             const icons = ["🦋", "💖", "💕", "✨", "⭐"];
             item.innerHTML = icons[Math.floor(Math.random() * icons.length)];
             item.style.left = Math.random() * 100 + "vw";
             item.style.fontSize = (Math.random() * 20 + 15) + "px";
-            
             const duration = Math.random() * 5 + 5;
             item.style.animationDuration = duration + "s";
-            
             bg.appendChild(item);
             setTimeout(() => { item.remove(); }, duration * 1000);
         }
-
         setInterval(createFloatingItem, 400);
 
         // === LOGIKA CEK PIN ===
@@ -296,38 +282,30 @@
                 }, 100);
             } else {
                 wrongAttempts++;
+                if (wrongAttempts === 1) errorMessage.innerText = "Muka cantik lucu imut gemesin trus pinter banget lagi kok bisa salah si Paull";
+                else if (wrongAttempts === 2) errorMessage.innerText = "Ayo Paull masa orang pinter kek kamu ga ingatt sii parah kecewa ahhhh";
+                else errorMessage.innerText = "Beneran ngambek ahh sama kamu";
                 
-                // Menentukan pesan error berdasarkan jumlah salah
-                if (wrongAttempts === 1) {
-                    errorMessage.innerText = "Muka cantik lucu imut gemesin trus pinter banget lagi kok bisa salah si Paull";
-                } else if (wrongAttempts === 2) {
-                    errorMessage.innerText = "Ayo Paull masa orang pinter kek kamu ga ingatt sii parah kecewa ahhhh";
-                } else {
-                    errorMessage.innerText = "Beneran ngambek ahh sama kamu";
-                }
-
                 errorMessage.style.display = "block";
                 errorMessage.classList.remove("fade-in");
-                void errorMessage.offsetWidth; // Reset animasi
+                void errorMessage.offsetWidth; 
                 errorMessage.classList.add("fade-in");
                 pinInput.value = "";
             }
         }
 
         submitPinBtn.addEventListener("click", checkPin);
-
-        // Tekan Enter untuk submit PIN
-        pinInput.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                checkPin();
-            }
-        });
+        pinInput.addEventListener("keypress", function(e) { if (e.key === "Enter") checkPin(); });
 
         // === LOGIKA ALUR WEB & GAME ===
         const phase1 = document.getElementById("phase1");
         const nextBtn = document.getElementById("nextBtn");
         const phase2 = document.getElementById("phase2");
         const phase3 = document.getElementById("phase3");
+        const phase4 = document.getElementById("phase4");
+        const phase5 = document.getElementById("phase5");
+        const btnToCalendar = document.getElementById("btnToCalendar");
+        
         const heart = document.getElementById("heartBtn");
         const gameArea = document.getElementById("gameArea");
         const gallery = document.getElementById("autoGallery");
@@ -339,86 +317,54 @@
         });
 
         let score = 0;
-
         function moveHeart() {
             const maxX = gameArea.clientWidth - 50; 
             const maxY = gameArea.clientHeight - 50;
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            heart.style.left = randomX + 'px';
-            heart.style.top = randomY + 'px';
+            heart.style.left = Math.floor(Math.random() * maxX) + 'px';
+            heart.style.top = Math.floor(Math.random() * maxY) + 'px';
         }
-
         setInterval(moveHeart, 800);
 
-        // === LOGIKA AUTO-SCROLL (14ms) ===
         let isAutoScrolling = true;
         let pauseTimer = null;
+        let scrollInterval = null;
 
         function startAutoScroll() {
-            setInterval(() => {
+            scrollInterval = setInterval(() => {
                 if (isAutoScrolling) {
                     gallery.scrollTop += 1;
-                    if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 2) {
-                        gallery.scrollTop = 0;
-                    }
+                    if (gallery.scrollTop + gallery.clientHeight >= gallery.scrollHeight - 2) gallery.scrollTop = 0;
                 }
-            }, 14); // Kecepatan 14ms
+            }, 14); 
         }
 
         function pauseScroll() {
             isAutoScrolling = false;
             clearTimeout(pauseTimer);
-            pauseTimer = setTimeout(() => {
-                isAutoScrolling = true;
-            }, 2000);
+            pauseTimer = setTimeout(() => { isAutoScrolling = true; }, 2000);
         }
 
-        // === FUNGSI LEDAKAN MERIAH ===
         function explodeParticles(x, y) {
             document.body.classList.add("bg-flash");
             setTimeout(() => { document.body.classList.remove("bg-flash"); }, 200);
-
-            const particles = ["💖", "💥", "✨", "🌸", "💕", "🦋", "🎉", "❤️", "⭐"];
-            const count = 16;
-
-            for (let i = 0; i < count; i++) {
+            const particles = ["💖", "💥", "✨", "🌸", "💕"];
+            for (let i = 0; i < 16; i++) {
                 const p = document.createElement("div");
                 p.innerHTML = particles[Math.floor(Math.random() * particles.length)];
                 p.className = "burst-particle";
-                p.style.left = x + "px";
-                p.style.top = y + "px";
+                p.style.left = x + "px"; p.style.top = y + "px";
                 p.style.fontSize = (Math.random() * 16 + 20) + "px";
-
-                const angle = (i / count) * Math.PI * 2 + (Math.random() * 0.4 - 0.2);
+                const angle = (i / 16) * Math.PI * 2 + (Math.random() * 0.4 - 0.2);
                 const speed = Math.random() * 130 + 70;
-                const tx = Math.cos(angle) * speed + "px";
-                const ty = Math.sin(angle) * speed + "px";
-
-                p.style.setProperty('--tx', tx);
-                p.style.setProperty('--ty', ty);
+                p.style.setProperty('--tx', Math.cos(angle) * speed + "px");
+                p.style.setProperty('--ty', Math.sin(angle) * speed + "px");
                 document.body.appendChild(p);
-
                 setTimeout(() => p.remove(), 700);
             }
         }
 
-        // CONTROL SENTUHAN JARI / MOUSE
-        gallery.addEventListener("touchstart", (e) => {
-            pauseScroll();
-            const touch = e.touches[0];
-            explodeParticles(touch.clientX, touch.clientY);
-        }, { passive: true });
-
-        gallery.addEventListener("touchmove", pauseScroll, { passive: true });
-        gallery.addEventListener("touchend", pauseScroll, { passive: true });
-
-        gallery.addEventListener("mousedown", (e) => {
-            pauseScroll();
-            explodeParticles(e.clientX, e.clientY);
-        });
-
-        gallery.addEventListener("mouseup", pauseScroll);
+        gallery.addEventListener("touchstart", (e) => { pauseScroll(); explodeParticles(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+        gallery.addEventListener("mousedown", (e) => { pauseScroll(); explodeParticles(e.clientX, e.clientY); });
         gallery.addEventListener("wheel", pauseScroll, { passive: true });
 
         heart.addEventListener("click", function() {
@@ -432,6 +378,45 @@
                 moveHeart(); 
             }
         });
+
+        // === LOGIKA PINDAH KE KALENDER ===
+        btnToCalendar.addEventListener("click", function() {
+            clearInterval(scrollInterval); // Hentikan auto scroll galeri
+            phase3.style.display = "none";
+            phase4.style.display = "block";
+            phase4.classList.add("fade-in");
+        });
+
+        // === LOGIKA GENERATE KALENDER (SEPTEMBER) ===
+        const calendarGrid = document.getElementById("calendarGrid");
+
+        // September mulai di hari Selasa, jadi butuh 2 kotak kosong (Minggu, Senin)
+        for(let i = 0; i < 2; i++) {
+            let empty = document.createElement("div");
+            empty.className = "day empty";
+            calendarGrid.appendChild(empty);
+        }
+
+        // Generate tanggal 1 sampai 30 normal
+        for(let i = 1; i <= 30; i++) {
+            let day = document.createElement("div");
+            day.className = "day";
+            day.innerText = i;
+            
+            day.onclick = () => {
+                if(i === 14) {
+                    // Pindah ke Halaman (Phase) 5
+                    phase4.style.display = "none"; // Hilangkan kalender
+                    phase5.style.display = "block"; // Munculkan foto spesial
+                    phase5.classList.add("fade-in");
+                    
+                    // Trigger partikel meriah saat berhasil buka
+                    explodeParticles(window.innerWidth / 2, window.innerHeight / 2);
+                }
+            };
+            
+            calendarGrid.appendChild(day);
+        }
     </script>
 </body>
 </html>
