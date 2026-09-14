@@ -214,7 +214,6 @@
         <!-- BAGIAN 4: KALENDER SEMANGAT -->
         <div id="phase4" style="display: none;">
             <h2>Kalender Semangat! 📅</h2>
-            <!-- UBAHAN DILAKUKAN DI SINI -->
             <p style="font-size: 14px;">bahagia terus yaa 🥰</p>
             
             <div class="calendar-header">
@@ -225,16 +224,15 @@
             </div>
         </div>
         
-        <!-- BAGIAN 5: KEJUTAN FOTO TANGGAL 14 -->
+        <!-- BAGIAN 5: KEJUTAN FOTO (TANGGAL 14 & 15) -->
         <div id="phase5" style="display: none;">
-            <h2>Kejutan Spesial! 🎉</h2>
+            <h2 id="phase5Title">Kejutan Spesial! 🎉</h2>
             <div class="polaroid" style="margin: 0 auto 20px auto; max-width: 250px; cursor: default;">
-                <img src="foto14.png" alt="Foto Spesial 14"> 
-                <p>Spesial Tanggal 14 💖</p>
+                <img id="phase5Img" src="foto14.png" alt="Foto Spesial"> 
+                <p id="phase5Caption">Spesial Tanggal 14 💖</p>
             </div>
-            <p style="font-weight: 600; color: #d81b60; font-size: 16px; line-height: 1.6;">
-                Hallooo Paulll! Selamat hari senin semangat terus ya Paul orang keren! ini tanggal pertama aku semangatin yaa aku mau mikir kata kata cuman ga ketemu ketemu kata katanya jadi kaku gini di hari pertama ini hahaha gpp yaa maafkan aku yang kaku ini huhuhu
-                tapi kamu tau tidak kenapa foto yang kumasukkin foto wisuda mu? itu karena aku ingin kamu selalu ingat momen bahagia pas kamu berhasil mencapai mimpimu dan aku ingin kamu terus berjuang mencapai mimpi mimpi yang lain kedepannya AKU YAKINN KAMU BISAAA ✨
+            <p id="phase5Text" style="font-weight: 600; color: #d81b60; font-size: 16px; line-height: 1.6;">
+                <!-- Pesan dinamis diisi dari JS -->
             </p>
         </div>
 
@@ -247,6 +245,22 @@
     <script>
         const CORRECT_PIN = "290826"; 
         let wrongAttempts = 0; 
+
+        // === DATA KEJUTAN PER TANGGAL ===
+        const specialDates = {
+            14: {
+                title: "Kejutan Spesial! 🎉",
+                img: "foto14.png",
+                caption: "Spesial Tanggal 14 💖",
+                text: "Hallooo Paulll! Selamat hari senin semangat terus ya Paul orang keren! ini tanggal pertama aku semangatin yaa aku mau mikir kata kata cuman ga ketemu ketemu kata katanya jadi kaku gini di hari pertama ini hahaha gpp yaa maafkan aku yang kaku ini huhuhu tapi kamu tau tidak kenapa foto yang kumasukkin foto wisuda mu? itu karena aku ingin kamu selalu ingat momen bahagia pas kamu berhasil mencapai mimpimu dan aku ingin kamu terus berjuang mencapai mimpi mimpi yang lain kedepannya AKU YAKINN KAMU BISAAA ✨"
+            },
+            15: {
+                title: "Kejutan Spesial Tanggal 15! 🎉",
+                img: "foto15.png",
+                caption: "Spesial Tanggal 15 💖",
+                text: "Ganti dengan teks/ucapan manis kamu khusus untuk tanggal 15 di sini yaa Paul! 🥰✨"
+            }
+        };
 
         // === ANIMASI BACKGROUND ===
         function createFloatingItem() {
@@ -391,21 +405,25 @@
         // === LOGIKA GENERATE KALENDER (SEPTEMBER) ===
         const calendarGrid = document.getElementById("calendarGrid");
 
-        // September mulai di hari Selasa, jadi butuh 2 kotak kosong (Minggu, Senin)
         for(let i = 0; i < 2; i++) {
             let empty = document.createElement("div");
             empty.className = "day empty";
             calendarGrid.appendChild(empty);
         }
 
-        // Generate tanggal 1 sampai 30 normal
         for(let i = 1; i <= 30; i++) {
             let day = document.createElement("div");
             day.className = "day";
             day.innerText = i;
             
             day.onclick = () => {
-                if(i === 14) {
+                if(specialDates[i]) {
+                    const data = specialDates[i];
+                    document.getElementById("phase5Title").innerText = data.title;
+                    document.getElementById("phase5Img").src = data.img;
+                    document.getElementById("phase5Caption").innerText = data.caption;
+                    document.getElementById("phase5Text").innerText = data.text;
+
                     phase4.style.display = "none"; 
                     phase5.style.display = "block"; 
                     phase5.classList.add("fade-in");
