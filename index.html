@@ -234,6 +234,8 @@
             <p id="phase5Text" style="font-weight: 600; color: #d81b60; font-size: 16px; line-height: 1.6;">
                 <!-- Pesan dinamis diisi dari JS -->
             </p>
+            <!-- Tombol Kembali ke Kalender -->
+            <button class="btn-next" id="btnBackToCalendar" style="margin-top: 15px;">Kembali ke Kalender 📅</button>
         </div>
 
     </div>
@@ -320,6 +322,7 @@
         const phase4 = document.getElementById("phase4");
         const phase5 = document.getElementById("phase5");
         const btnToCalendar = document.getElementById("btnToCalendar");
+        const btnBackToCalendar = document.getElementById("btnBackToCalendar");
         
         const heart = document.getElementById("heartBtn");
         const gameArea = document.getElementById("gameArea");
@@ -398,6 +401,13 @@
         btnToCalendar.addEventListener("click", function() {
             clearInterval(scrollInterval);
             phase3.style.display = "none";
+            phase4.style.display = "block";
+            phase4.classList.add("fade-in");
+        });
+
+        // === LOGIKA KEMBALI DARI KEJUTAN KE KALENDER ===
+        btnBackToCalendar.addEventListener("click", function() {
+            phase5.style.display = "none";
             phase4.style.display = "block";
             phase4.classList.add("fade-in");
         });
