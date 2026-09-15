@@ -222,6 +222,9 @@
             <div class="calendar" id="calendarGrid">
                 <!-- Kalender di-generate pakai JavaScript -->
             </div>
+
+            <!-- TOMBOL KEMBALI KE FOTO POLAROID -->
+            <button class="btn-next" id="btnBackToGallery" style="margin-top: 15px;">&lt;&lt; Kembali ke Foto 📸</button>
         </div>
         
         <!-- BAGIAN 5: KEJUTAN FOTO -->
@@ -329,6 +332,7 @@
         const phase5 = document.getElementById("phase5");
         const btnToCalendar = document.getElementById("btnToCalendar");
         const btnBackToCalendar = document.getElementById("btnBackToCalendar");
+        const btnBackToGallery = document.getElementById("btnBackToGallery");
         
         const heart = document.getElementById("heartBtn");
         const gameArea = document.getElementById("gameArea");
@@ -354,6 +358,7 @@
         let scrollInterval = null;
 
         function startAutoScroll() {
+            clearInterval(scrollInterval);
             scrollInterval = setInterval(() => {
                 if (isAutoScrolling) {
                     gallery.scrollTop += 1;
@@ -409,6 +414,14 @@
             phase3.style.display = "none";
             phase4.style.display = "block";
             phase4.classList.add("fade-in");
+        });
+
+        // === LOGIKA KEMBALI DARI KALENDER KE GALERI FOTO ===
+        btnBackToGallery.addEventListener("click", function() {
+            phase4.style.display = "none";
+            phase3.style.display = "block";
+            phase3.classList.add("fade-in");
+            startAutoScroll();
         });
 
         // === LOGIKA KEMBALI DARI KEJUTAN KE KALENDER ===
